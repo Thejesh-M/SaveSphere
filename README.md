@@ -1,2 +1,0 @@
-# SaveSphere
-Anamoly Action Detection

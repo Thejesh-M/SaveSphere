@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Distancing Monitoring Dashboard</title>
+<style>
+  html {
+  height: 100%; /* Ensure that the html element covers the full height */
+}
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    
+  }
+  .dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #fff;
+    /* border: 1px solid #ddd; */
+    padding: 30px;
+    height: 100%;
+    width: 100%;
+  }
+  .video-feed {
+    flex: 1;
+    /* width: 60%; */
+    margin-top: 5%;
+    height: 700px;
+    border: 0px solid #ccc;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    /* box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2); */
+
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+    transform: translateZ(50px); /* Push the element outwards from the screen */
+    transition: transform 0.3s ease; 
+  }
+  .analytics {
+    /* margin-top: 25%; */
+    flex-direction: column;
+    align-items: center;
+    width: 35%;
+    /* border-radius: 10px; */
+    display: flex; 
+    /* box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+    /* transform: translateZ(50px); /* Push the element outwards from the screen */
+    /* transition: transform 0.3s ease;  */ 
+  }
+
+  .status-block{
+    margin-top: 20%;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+    transform: translateZ(50px); /* Push the element outwards from the screen */
+    transition: transform 0.3s ease; 
+  }
+
+  .video-feed h2 {
+  font-family: 'Roboto', sans-serif; /* Use the Roboto font */
+  font-weight: 700; /* Make the font bold */
+  color: #333; /* Set a dark gray color for the text */
+  text-transform: uppercase; /* Optional: Transform text to uppercase */
+  letter-spacing: 1px; 
+  width: 100%;
+  text-align: center; /* Center the text */
+  /* margin-bottom: 10px; Add some space below the title */
+}
+  .status-block h2 {
+  font-family: 'Roboto', sans-serif; /* Use the Roboto font */
+  font-weight: 700; /* Make the font bold */
+  color: #333; /* Set a dark gray color for the text */
+  text-transform: uppercase; /* Optional: Transform text to uppercase */
+  letter-spacing: 1px; /* A
+  width: 100%; /* Full width */
+  text-align: center; /* Center the text */
+  margin-bottom: 10px; /* Add some space below the title */
+}
+  .violation-chart {
+    width: 100%;
+    height: 250px;
+    /* background: #eaeaea; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+    transform: translateZ(50px); /* Push the element outwards from the screen */
+    transition: transform 0.3s ease; 
+
+  }
+  .violation-chart:before {
+    content: 'Chart Placeholder';
+    color: #999;
+  }
+  #violationChart {
+  width: 100%;
+  max-width: 600px; 
+  height: auto;
+  aspect-ratio: 2 / 1; 
+  }
+
+  .notification-area {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+    }
+
+.action-status {
+  border: 1px solid #ccc;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 2px;
+  padding-left: 65px;
+  padding-right: 65px;
+  margin-top: 25%;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* margin-left: 70%;  */
+  flex-basis: 50%; 
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+    transform: translateZ(50px); /* Push the element outwards from the screen */
+    transition: transform 0.3s ease;
+}
+
+.action-status h2 {
+  margin-bottom: 15px;
+  /* Add additional styling similar to the Violation Count heading */
+}
+
+#actionMessage {
+  font-size: 1.2em;
+  /* Default safe message color */
+  color: #28a745;
+}
+
+/* Style when danger is detected */
+.action-status.danger {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+}
+
+.action-status.danger #actionMessage {
+  color: #dc3545;
+}
+    
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+    
+  <div class="video-feed">
+    <h2>Real-Time Dashboard</h2>
+    <img id="videoFeed" src="/video_feed" alt="Video Feed" >
+    <div id="detectionStatus" style="padding: 10px; color: white; display: none;">
+        Harm detected!
+    </div>
+    <div id="notificationArea" class="notification-area"></div>
+  </div>
+
+
+
+
+  <div class="analytics">
+    
+    <div class="action-status">
+        <h2>ACTION</h2>
+        <p id="actionMessage">Safe</p>
+      </div>
+
+      <div class="status-block">
+        <h2>Violation Count</h2>
+        <canvas class = "violation-chart" id="violationChart"></canvas>
+    </div>
+    </div>
+
+    
+
+  
+</div>
+
+
+<script>
+    function fetchLatestDetection() {
+        fetch('/latest_detection')
+            .then(response => response.json())
+            .then(data => {
+                const notificationArea = document.getElementById('notificationArea');
+                const actionStatusDiv = document.getElementById('actionMessage');
+                actionStatusDiv.textContent = 'Safe';
+                actionStatusDiv.parentElement.classList.add('safe');
+                actionStatusDiv.parentElement.classList.remove('danger');
+                if (data.latest_detection === "Fire" ) {
+                    if (!fireDetected){
+                        sendFireAlertEmail();
+                    }
+                    console.log('Latest Detection: Fire');
+                    notificationArea.textContent = 'Fire Detected!'; // Set the message
+                    notificationArea.style.display = 'block'; // Show the notification
+                    actionStatusDiv.textContent = 'Danger! Message sent to authorities.';
+                    actionStatusDiv.parentElement.classList.add('danger');
+                    actionStatusDiv.parentElement.classList.remove('safe');
+
+                }
+                if (data.latest_detection === "Gun" || data.latest_detection === "Rifle") {
+                    notificationArea.textContent = 'Gun Detected!'; // Set the message
+                    notificationArea.style.display = 'block'; // Show the notification
+                    actionStatusDiv.textContent = 'Danger! Message sent to authorities.';
+                    actionStatusDiv.parentElement.classList.add('danger');
+                    actionStatusDiv.parentElement.classList.remove('safe');
+
+                }
+
+                 else {
+                    fireDetected = false;
+                    notificationArea.style.display = 'none'; // Hide the notification
+                    harmStatusDiv.className = 'harm-status safe';
+                    harmStatusText.textContent = 'Situation Safe';
+                    actionStatusDiv.textContent = 'Safe';
+                    actionStatusDiv.parentElement.classList.add('safe');
+                    actionStatusDiv.parentElement.classList.remove('danger');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Poll for the latest detection every 3 seconds
+    setInterval(fetchLatestDetection, 500);
+</script>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- <canvas id="violationChart" width="50px" height="50px"></canvas> -->
+<script>
+    function formatDate(date) {
+    var hours = date.getHours().toString().padStart(2, '0');
+    var minutes = date.getMinutes().toString().padStart(2, '0');
+    var seconds = date.getSeconds().toString().padStart(2, '0');
+    return hours + ':' + minutes + ':' + seconds;
+    }
+
+    var ctx = document.getElementById('violationChart').getContext('2d');
+    var violationChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [], // You would populate this with time or frame count
+            datasets: [{
+                label: '# of Detections',
+                data: [], // Data points
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive : true,
+            // maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+    tooltips: { // Enable tooltips
+      mode: 'index',
+      intersect: false,
+    },
+    hover: { // Enable hover effects
+      mode: 'nearest',
+      intersect: true
+    },
+    onClick: function (event, activeElements) { // Handle click events on the chart
+      // You can access the clicked element like this:
+      var elementIndex = activeElements[0]._index;
+      var label = this.data.labels[elementIndex];
+      var value = this.data.datasets[0].data[elementIndex];
+      alert(`Label: ${label}, Value: ${value}`);
+    }
+    
+
+        }
+    });
+
+    function fetchFireDetectionCount() {
+        fetch('/fire_detection_count')
+            .then(response => response.json())
+            .then(data => {
+                // Assume we have a function to format date or get the current frame count
+                violationChart.data.labels.push(formatDate(new Date())); 
+                violationChart.data.datasets[0].data.push(data.fire_detection_count);
+                violationChart.update();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Poll every 3 seconds
+    setInterval(fetchFireDetectionCount, 500);
+
+
+
+    let fireDetected = false;
+
+function sendFireAlertEmail() {
+    if (!fireDetected) {
+        fetch('/send_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // You may need to include additional data or parameters if necessary
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+            fireDetected = true;  // Prevent further email sending
+        })
+        .catch(error => {
+            console.error('Error sending email:', error);
+        });
+    }
+}
+</script>
+
+
+
+</body>
+</html>

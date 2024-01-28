@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>SaveSphere</title>
+        <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <!-- <link href="../static/css/style.css" rel="stylesheet" /> -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body id="page-top">
+        <!-- Background Video-->
+       
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top"   id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" style="color: whitesmoke;" href="#page-top">SafeSphere</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" style="color: whitesmoke;" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" style="color: whitesmoke;" href="#team">Team</a></li>
+                        <li class="nav-item"><a class="nav-link" style="color: whitesmoke;" href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="../static/assets/mp4/violence.mp4" type="video/mp4" /></video>
+        <div class="masthead">
+            
+            <div class="masthead-content text-white">
+                
+                <div class="container-fluid px-4 px-lg-0">
+                    
+                    <h1 class="fst-italic lh-1 mb-4" style="font-size: 40px;">SafeSphere</h1>
+                    <p class="fst-italic mb-5" style="text-align:justify;font-size: 15px;">SafeSphere goes beyond environmental hazard detection, actively alerting users to potential risks posed by aggressive human behavior. Serving as your ultimate safety companion, we foster a proactive approach to safeguarding lives and surroundings, providing crucial alerts for enhanced security.</p>
+                    <!-- * * * * * * * * * * * * * * *-->
+                    <!-- * * SB Forms Contact Form * *-->
+                    <!-- * * * * * * * * * * * * * * *-->
+                    <!-- This form is pre-integrated with SB Forms.-->
+                    <!-- To make this form functional, sign up at-->
+                    <!-- https://startbootstrap.com/solution/contact-forms-->
+                    <p class="fst-italic mb-5" style="text-align:justify;font-size: 13px;">Unleash the power of visual scrutiny! Upload your video, and let our cutting-edge technology unveil the truth within each frame. Discover a new era of safety and security with just a click.</p>
+                 
+
+                        <form class="row input-group-newsletter" id="uploadForm" method="post" enctype="multipart/form-data">
+                            <div class="col"> <input class="form-control" type="file" accept="video/*"  id="videoInput" name="file"></div>
+                            <div class="col-auto"><button class="btn btn-primary" id="submitButton" type="button" onclick="uploadVideo()">Upload Video</button></div>
+                        </form>
+
+
+                        <p id="uploadStatus" style="font-size: 15px;"></p>
+
+    <p id="uploadStatus" style="font-size: 15px;"></p>
+</div>
+
+
+    <script>
+
+        function uploadVideo() {
+        const uploadStatus = document.getElementById('uploadStatus');
+        const formData = new FormData(document.getElementById('uploadForm'));
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            uploadStatus.textContent = data.message;
+            setTimeout(function() {
+                window.location.href = '/video_page';
+            }, 4000); // 2000 milliseconds delay
+        })
+        .catch(error => {
+            uploadStatus.textContent = 'Error uploading video';
+            console.error('Error:', error);
+        });
+    }
+
+//         function uploadVideo() {
+//             const input = document.getElementById('videoInput');
+//             const file = input.files[0];
+//             const uploadStatus = document.getElementById('uploadStatus');
+
+//             if (file) {
+//                 uploadStatus.textContent = 'Video Uploaded';
+//                  // Create a Blob URL for the video file
+//                  const videoURL = URL.createObjectURL(file);
+
+// // Set the src attribute of the video element
+// videoElement.src = videoURL;
+
+// // Display the video element
+// videoElement.style.display = 'block';
+                
+//             } else {
+//                 uploadStatus.textContent = 'No file selected';
+//             }
+//             }
+    </script>
+                
+                    
+                </div>
+               
+            </div>
+
+            <!-- <div>
+            <img id="frameImage" src="" alt="Video Frame"></div>
+            <script>
+                function displayFrames() {
+                const imageElement = document.getElementById('frameImage');
+                let frameCount = 0;
+
+                setInterval(() => {
+                    imageElement.src = `../frame?number=${frameCount}.jpg`;
+                    frameCount++;
+                }, 10);
+                }
+
+            </script> -->
+
+            
+           
+           
+        </div>
+         <!-- About-->
+         <!-- About-->
+        <!-- About-->
+        
+        <section class="masthead"   id="about">
+             
+            <div class="container px-4 px-lg-5" >
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-white mb-4">About</h2>
+                        <p class="text-white-50" style="text-align: justify;">
+                            We envision a safer world where the risk of gun-related incidents and fires is minimized through the power of intelligent detection systems. We strive to be at the forefront of technological advancements, ensuring that our solutions are not only effective but also user-friendly and accessible.We pride ourselves on utilizing state-of-the-art object models to detect and analyze potential threats swiftly and accurately. Our advanced algorithms are designed to identify firearms and fire hazards with unparalleled precision.
+                        </p>
+                    </div>
+                </div>
+                 <!-- <img class="img-fluid" src="assets/img/ipad.png" alt="..." />-->
+                 <div class="row">
+                    <div class="col-lg-8 mx-auto text-center" style="padding-top:30px ;">
+                        <p class="text-white-50"><em><b>"Empowering Safety, Defending Peace: Vigilance Unleashed, Harm Averted!"</b></em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+        <section class="masthead"  id="team">
+         
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-white">Our Amazing Team</h2>
+                        <p class="text-white-50" style="text-align: justify;">
+                            Meet the dedicated individuals who bring passion, expertise, and creativity to our team. Together, we work collaboratively to achieve our mission and deliver exceptional results!
+                        </p>
+                    </div>
+                   
+                        <style>
+                            .team-member img {
+                                width: 150px; /* Adjust the width as needed */
+                                height: 150px; /* Adjust the height as needed */
+                            }
+                        </style>
+                        <div class="col-md-5">
+                            <div class="team-member" style="margin-left: 80px;padding-bottom: 15px;">
+                                <img class="mx-auto rounded-circle" src="../static/assets/img/rad.jpg" alt="..." />
+                                <h4 class="text-muted" style="font-size: 20px;">Radhika Shenoy</h4>
+                                <h4 class="text-muted" style="font-size: 18px;">Lead Designer</h4>
+                                <a class="btn  btn-social mx-2 text-muted" href=https://www.instagram.com/_radhika_._shenoy_/ aria-label="Radhika Shenoy Instagram Profile"><i class="fab fa-instagram"></i></a>
+                                <a class="btn  btn-social mx-2 text-muted" href=https://www.linkedin.com/in/radhika-shenoy-09098b241/ aria-label="Radhika Shenoy LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="team-member">
+                                <img class="mx-auto rounded-circle" src="../static/assets/img/2.jpeg" alt="..." />
+                                <h4 class="text-muted" style="font-size: 20px;">Sahana Manjunath</h4>
+                                <h4 class="text-muted" style="font-size: 18px;">Lead Designer</h4>
+                                <a class="btn  btn-social mx-2 text-muted" href=https://www.instagram.com/manjunathsahana/ aria-label="Sahana Manjunath Instagram Profile"><i class="fab fa-instagram"></i></a>
+                                <a class="btn  btn-social mx-2 text-muted" href=https://www.linkedin.com/in/sahana-manjunath-7564a71a6/ aria-label="Sahana Manjunath LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="team-member"  style="margin-left: 80px;">
+                                <img class="mx-auto rounded-circle" src="../static/assets/img/mohan.jpeg" alt="..." />
+                                <h4 class="text-muted" style="font-size: 20px;">Sai Mohan</h4>
+                                <h4 class="text-muted" style="font-size: 18px;">Lead Developer</h4>
+                                <a class="btn  btn-social mx-2 text-muted" href=https://www.instagram.com/sai1607/ aria-label="Sai Mohan Instagram Profile"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-social mx-2 text-muted" href="#!" aria-label="Sai Mohan LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="team-member">
+                                <img class="mx-auto rounded-circle" src="../static/assets/img/thejesh.jpeg" alt="..." />
+                                <h4 class="text-muted" style="font-size: 20px;">Thejesh Mallidi</h4>
+                                <h4 class="text-muted" style="font-size: 18px;">Lead Developer</h4>
+                                <a class="btn  btn-social mx-2 text-muted" href=https://www.instagram.com/_mr._thej_/ aria-label="Thejesh Instagram Profile"><i class="fab fa-instagram"></i></a>
+                                <a class="btn  btn-social mx-2 text-muted" href="" aria-label="Thejesh LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                   
+              
+                 <!-- <img class="img-fluid" src="assets/img/ipad.png" alt="..." />-->
+            </div>
+        </div>
+        </section>
+</section>
+  
+   
+    <!-- About-->
+  
+    <!-- Contact-->
+<section class="masthead page-section" id="contact">
+<div class="row gx-4 gx-lg-5 justify-content-center">
+<div class="container">
+    <div class="text-center">
+       
+        <h2 class="fst-italic lh-1 text-white mb-4">Contact Us</h2>
+        <h3 class="section-subheading fst-italic lh-1 text-muted mb-4 style=font-size: 25px;">Get in Touch with Us... Your Feedback Matters!</h3>
+    </div>
+    <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+        <!-- Name, Email, and Phone Number Row -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <!-- Name input-->
+                    <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                    <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <!-- Email address input-->
+                    <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                    <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                    <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <!-- Phone number input-->
+                    <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                    <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Row -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="form-group form-group-textarea">
+                    <!-- Message input-->
+                    <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                    <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-none" id="submitSuccessMessage">
+            <div class="text-center text-white mb-3">
+                <div class="fw-bolder">Your message has landed safely in our care. If you were facing an issue with our services, our team is on it, and you'll hear back from us soon. Thank you for reaching out!</div>
+                <br />
+            </div>
+        </div>
+
+        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+        <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+    </form>
+</div>
+</div>
+</section>
+        
+        <!-- Social Icons-->
+        <!-- For more icon options, visit https://fontawesome.com/icons?d=gallery&p=2&s=brands-->
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <!-- <script src="js/scripts.js"></script> -->
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

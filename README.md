@@ -9,6 +9,14 @@ You can download the model weights from [here](https://drive.google.com/file/d/1
 ```
 flask run
 ```
+# Dataset
+We used a Dataset available in kaggle to train the Object Detection Model Training.
+[Dataset](https://www.kaggle.com/atulyakumar98/fire-and-gun-dataset)
+
+# Demo
+Demo: [Youtube](https://youtu.be/VIHiPXsZ3IA)
+
+
 
 
 

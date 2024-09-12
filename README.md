@@ -14,7 +14,10 @@ We used a Dataset available in kaggle to train the Object Detection Model Traini
 [Dataset](https://www.kaggle.com/atulyakumar98/fire-and-gun-dataset)
 
 # Demo
-Demo: [Youtube](https://youtu.be/VIHiPXsZ3IA)
+
+Look at this post for more details: 
+
+Demo: [LinkedIn](https://www.linkedin.com/posts/thejeshm_spartahack-hackathon-objectdetection-activity-7158187515017883648-FuxB?utm_source=share&utm_medium=member_desktop)
 
 
 
